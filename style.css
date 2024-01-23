@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+.d-none {
+    display: none;
+}
+
+form {
+    width: 400px;
+    margin: 3rem auto;
+    border: 2px solid black;
+    padding: 1rem;
+}
+
+form div * {
+    margin-bottom: 1rem;
+    width: 95%;
+    padding: .5rem;
+}
+
+form button {
+    width: 49.5%;
+    padding: 1rem;
+}
+
