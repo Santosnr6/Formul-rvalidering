@@ -9,7 +9,7 @@
 <body>
 
     <!-- Form Container -->
-    <div class="form-container">
+    <div class="form-container" id="formContainer">
         <h2 id="errorMsg"></h2>
         <!-- Login Form -->
         <form id="loginForm">
@@ -21,8 +21,8 @@
                 <label for="password">Lösenord:</label>
                 <input type="password" id="password">
             </div>
-            <button>Logga in</button>
-            <button>Registrera</button>
+            <button id="loginBtn">Logga in</button>
+            <button id="toRegisterBtn">Registrera konto</button>
         </form>
 
         <!-- Registration Form -->
@@ -39,14 +39,18 @@
                 <label for="pWordAgain">Ange lösenord igen:</label>
                 <input type="password" id="pWordAgain">
             </div>
-            <button>Logga in</button>
+            <button id="registerBtn">Registrera</button>
+            <button id="backBtn">Tillbaks</button>
         </form>
     </div>
 
     <!-- Page Content -->
     <div class="content-container" id="contentContainer">
-        <!-- <button>Logga ut</button> -->
+        <button id="logoutBtn">Logga ut</button>
+        <button id="deleteAccBtn">Delete account</button>
     </div>
     
+    <script src="./users.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
