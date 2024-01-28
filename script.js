@@ -145,12 +145,14 @@ function validateRegistration() {
         return true;
     } catch(error) {
         const errorMsg = document.querySelector('#errorMsg');
+        const password = document.querySelector('#pWord');
         const passwordAgain = document.querySelector('#pWordAgain');
 
         if(error.nodeRef !== undefined) {
             error.nodeRef.value = '';
             error.nodeRef.focus();
             errorMsg.textContent = error.msg;
+            password.value = '';
             passwordAgain.value = '';
         } else {
             error.textContent = error;
