@@ -2,6 +2,18 @@
 
 window.addEventListener('load', () => {
     initPage();
+
+    console.log(getUsers());
+
+    // localStorage.setItem('users', JSON.stringify(users));
+
+    // const userArray = JSON.parse(localStorage.getItem('users'));
+
+    // console.log(userArray);
+
+    // const peach = userArray.find(user => user.username === 'princesspeach');
+
+    // console.log(peach.password);
 });
 
 function initPage() {
@@ -70,6 +82,7 @@ function validateLogin() {
     try {
         const username = document.querySelector('#username');
         const password = document.querySelector('#password');
+        const users = getUsers();
         let user = {}
         
         if(!users.some(user => user.username === username.value)) {
@@ -91,6 +104,7 @@ function validateLogin() {
         errorMsg.textContent = '';
 
         password.value = '';
+        setUser(user.id);
 
         return true;
     } catch(error) {
@@ -114,6 +128,7 @@ function validateRegistration() {
         const username = document.querySelector('#uName');
         const password = document.querySelector('#pWord');
         const passwordAgain = document.querySelector('#pWordAgain');
+        const users = getUsers();
         
         
         if(users.some(user => user.username === username.value)) {
@@ -138,6 +153,8 @@ function validateRegistration() {
         const errorMsg = document.querySelector('#errorMsg');
         errorMsg.textContent = '';
         
+
+        addUser(username.value, password.value);
         username.value = '';
         password.value = '';
         passwordAgain.value = '';
@@ -181,17 +198,59 @@ function logOut() {
 function getUsers() {
     console.log('getUsers()');
 
+    try {
+        const usersString = sessionStorage.getItem('users') || JSON.stringify([]);
+        const users = JSON.parse(usersString);
+
+        return users;
+    } catch(error) {
+        console.log(error);
+        return [];
+    }
+
 }
 
 function addUser(uName, pWord) {
     console.log('addUser()');
+
+    try {
+        const users = getUsers();
+        let userId = 1;
+        if(users.length > 0) {
+            userId = users[users.length - 1].id + 1;
+        }
+
+        const newUser = {
+            id : userId,
+            username : uName,
+            password : pWord 
+        }
+
+        users.push(newUser);
+
+        sessionStorage.setItem('users', JSON.stringify(users));
+
+    } catch(error) {
+        console.log(error);
+    }
     
 }
 
 function setUser(userId) {
-    
+    sessionStorage.setItem('currentUser', userId);
 }
 
 function deleteAccount() {
-    
+    console.log('deleteAccount()');
+
+    try {
+        let users = getUsers();
+        const userId = JSON.parse(sessionStorage.getItem('currentUser'));
+        users = users.filter(user => { return user.id !== userId });
+        sessionStorage.setItem('users', JSON.stringify(users));
+
+        sessionStorage.removeItem('currentUser');
+    } catch (error) {
+        console.log(error);
+    }
 }
